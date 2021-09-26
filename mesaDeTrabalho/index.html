@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Mesa de Trabalho - Métodos Array</title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+
+        /*
+            Com base na lista alunos e suas respectivas notas...
+            ( ✅ )Atividade I: Liste todos os valores
+            Lista todos os valores da lista.
+            ( ✅ )Atividade II: Calcule a média de todos os valores
+            Calcule a média de todos as notas da lista.
+            ( ✅ )Atividade III: Filtre e liste valores
+            Filtre e liste todos os alunos que zeraram em uma ou mais provas.
+            ( ✅ )Atividade IV: Busque e liste valores
+            Filtre todos os alunos, cuja a média foi inferior a 6.
+            ( ✅ )Atividade V: Busque por caracteres
+            Busque e liste todos os alunos que possuam caracteres 'io'.
+        */
+
+        var listaDeAlunos = [
+            {
+                nome: 'Ivan',
+                notas: [10, 8.1, 6.6, 7],
+            },
+            {
+                nome: 'Salomão',
+                notas: [5, 6.3, 6.8, 10]
+            },
+            {
+                nome: 'Angela',
+                notas: [9, 9.6, 7.9, 8]
+            },
+            {
+                nome: 'Ivo',
+                notas: [6, 6, 3, 6.5]
+            },
+            {
+                nome: 'Dayane',
+                notas: [3, 6, 7.5, 8.1]
+            },
+            {
+                nome: 'Willian',
+                notas: [3, 2, 5, 7.3]
+            },
+            {
+                nome: 'Ana',
+                notas: [5, 4, 6, 3.5]
+            },
+            {
+                nome: 'Edu',
+                notas: [6, 3, 6, 6]
+            }, 
+            {
+                nome: 'Paulo',
+                notas: [10, 9.3, 9, 0]
+            },
+            {
+                nome: 'Junior',
+                notas: [7, 6.5, 7, 6.3]
+            },
+            {
+                nome: 'Caio',
+                notas: [7, 0, 7.5, 8]
+            }
+        ];
+
+        // ATIVIDADE 1 - Listar todos os alunos e suas notas ✅
+        console.log('--------------\nAtividade 1\n--------------\n');
+
+        function listarAlunos(elemento, i){
+            console.log(`Aluno: ${listaDeAlunos[i].nome},\n .  Notas do Curso: ${listaDeAlunos[i].notas.join(' | ')}`)
+        }
+
+        var listaDeNotas = listaDeAlunos.map(listarAlunos); 
+
+    // ATIVIDADE 2 - Cálcular a média de todos os alunos ✅
+        console.log('--------------\nAtividade 2\n--------------\n');
+
+        // Somar as notas de cada aluno
+        var notasSomadas = listaDeAlunos.map(
+            function(elemento, i){
+                return listaDeAlunos[i].notas.reduce(
+                    function(notaAnterior, notaAtual){
+                        return notaAnterior + notaAtual;
+                    }
+                )
+            }
+        )
+
+        // Definir a quantidade de provas feitas
+        var qtdeProvas = listaDeAlunos[0].notas.length;
+
+        // Calcular a média das provas de cada aluno
+        var mediaNotas = notasSomadas.map(
+            function(elemento, i){
+                return (notasSomadas[i]/qtdeProvas).toFixed(1);
+            }
+        )
+        // Listar os alunos e suas médias finais
+        var alunosMedias = listaDeAlunos.map(
+            function(elemento,i){
+                return console.log (`Aluno: ${listaDeAlunos[i].nome}\n .  Média Final: ${mediaNotas[i]}`)
+            }
+        )
+
+        console.log(mediaNotas)
+    // ATIVIDADE 3 - Filtrar e listar alunos que zeraram provas ✅
+
+        /* Etapas: i. acessar as notas de cada aluno
+                   ii. filtrar se alguma nota foi 0
+                   iii. exibir somente os alunos que tiraram 0 em alguma prova */
+
+        console.log('--------------\nAtividade 3\n--------------');
+
+        var alunosZerados = listaDeAlunos.map(
+            function(aluno){
+                if(aluno.notas.some(
+                    function(nota){
+                        return nota === 0
+                    }
+                )){return `O aluno ${aluno.nome} tirou nota 0 em uma das provas`}
+            }
+        ).filter(
+            function(elementos){
+                return elementos != undefined;
+            }
+        )
+
+        var listaAlunosZerados = alunosZerados.map(
+            function(nome,i){
+                return console.log(`${alunosZerados[i]}`)
+            }
+        )
+
+    // ATIVIDADE 4 - Filtrar os alunos com média inferior a 6 ✅
+
+        console.log('--------------\nAtividade 4\n--------------')
+
+        function filtrarMedia(notas, i){
+            if(mediaNotas[i]<6){
+                return console.log(`O aluno ${listaDeAlunos[i].nome} ficou com média inferior a 6`)
+            }
+        }
+
+        var mediaInferiorA6 = mediaNotas.filter(filtrarMedia);
+    
+    // ATIVIDADE 5 - Buscar todos os alunos que possuem o caracter 'io' em seu nome
+
+        console.log('----------------\nAtividade 5\n----------------') //✅
+
+        var alunosEspeciais = listaDeAlunos.filter(
+            function(caracter,i){
+                return listaDeAlunos[i].nome.includes('io');
+            }
+        )
+
+        var listaEspeciais = alunosEspeciais.map(
+            function(nome,i){
+                return console.log(`Aluno com caracter especial: ${alunosEspeciais[i].nome}`)
+            }
+        )
+
+        /*
+            Documentação dos recursos abordado em aula:
+            * map() https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/map 
+            * filter() https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+            * reduce() https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce 
+            * every() https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+            * some() https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+            * find() https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+            
+            Documentação de recursos extra:
+            * String
+            https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String
+            https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/First_steps/Useful_string_methods
+            
+        */
+
+    </script>
+</body>
+</html>
